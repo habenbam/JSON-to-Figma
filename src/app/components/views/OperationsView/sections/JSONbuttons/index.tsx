@@ -9,6 +9,7 @@ import styles from './styles.module.scss';
 interface Props {
     obj: Object;
     random: boolean;
+    mergeEqualKeys: boolean;
     range: string;
     onReuploadClick(event: React.MouseEvent<HTMLButtonElement>): void;
 }
@@ -27,6 +28,7 @@ const JSONButtons: React.FC<Props> = props => {
         postFigmaMessage({
             type: 'post-plugin-storage',
             random: props.random,
+            mergeEqualKeys: props.mergeEqualKeys,
             manual: false,
             selected: selectedItems,
             obj: filterObjRange(props.range, props.obj),
@@ -36,7 +38,7 @@ const JSONButtons: React.FC<Props> = props => {
     // USE EFFECT
     React.useEffect(() => {
         postPluginData();
-    }, [selectedItems, props.random]);
+    }, [selectedItems, props.random, props.mergeEqualKeys]);
 
     // BUTTONS
     const createButtons = () => {
@@ -77,6 +79,7 @@ const JSONButtons: React.FC<Props> = props => {
         postFigmaMessage({
             type: 'populate',
             random: props.random,
+            mergeEqualKeys: props.mergeEqualKeys,
             selected: selectedItems,
             obj: filterObjRange(props.range, obj),
         });

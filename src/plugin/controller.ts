@@ -25,7 +25,7 @@ figma.ui.onmessage = msg => {
         } else {
             if (selectedArray.length > 0) {
                 selectedArray.map(selectedItem => {
-                    populateByName(selection, obj, selectedItem);
+                    populateByName(selection, obj, selectedItem, msg.mergeEqualKeys);
                 });
             } else {
                 figmaNotify('error', `Select keys to populate`, 3000);

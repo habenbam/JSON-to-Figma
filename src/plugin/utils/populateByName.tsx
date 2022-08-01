@@ -1,6 +1,6 @@
 import {skipSign} from '../../data/skipSign';
 
-export default function populateByName(selectedLayers, JSONobj, selectedItem) {
+export default function populateByName(selectedLayers, JSONobj, selectedItem, mergeEqualKeys) {
     let newItem = 0;
 
     const loopSelected = arr => {
@@ -10,7 +10,7 @@ export default function populateByName(selectedLayers, JSONobj, selectedItem) {
                     figma.loadFontAsync(item.fontName).then(() => {
                         if (typeof JSONobj[newItem] !== 'undefined') {
                             item.characters = JSONobj[newItem]?.[selectedItem].toString();
-                            newItem = ++newItem;
+                            if (!mergeEqualKeys) newItem = ++newItem;
                         }
                     });
                 }
@@ -22,7 +22,7 @@ export default function populateByName(selectedLayers, JSONobj, selectedItem) {
                             url: JSONobj[newItem][selectedItem].toString(),
                             targetID: item.id,
                         });
-                        newItem = ++newItem;
+                        if (!mergeEqualKeys) newItem = ++newItem;
                     }
                 }
 

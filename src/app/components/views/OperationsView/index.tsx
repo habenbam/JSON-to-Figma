@@ -6,6 +6,7 @@ import {
     ManualJSONButtons,
     SkipLayers,
     RandomSwitcher,
+    MergeEqualKeysSwitcher,
     SelectRange,
     ManualPopulationSwitcher,
 } from './sections';
@@ -20,6 +21,7 @@ interface Props {
 
 const OperationsView: React.FunctionComponent<Props> = props => {
     const [isRandomSwitch, setIsRandomSwitch] = React.useState(false);
+    const [isMergeEqualKeysSwitch, setIsMergeEqualKeysSwitch] = React.useState(false);
     const [isManualSwitch, setIsManualSwitch] = React.useState(false);
     const [range, setRange] = React.useState('');
     const [rangeError, setRangeError] = React.useState(false);
@@ -32,6 +34,10 @@ const OperationsView: React.FunctionComponent<Props> = props => {
 
     const handleRandomSwitcher = e => {
         setIsRandomSwitch(e.target.checked);
+    };
+
+    const handleMergeEqualKeysSwitcher = e => {
+        setIsMergeEqualKeysSwitch(e.target.checked);
     };
 
     const handleManualSwitcher = e => {
@@ -58,6 +64,7 @@ const OperationsView: React.FunctionComponent<Props> = props => {
                             onReuploadClick={props.onReuploadClick}
                             obj={JSONobject}
                             random={isRandomSwitch}
+                            mergeEqualKeys={isMergeEqualKeysSwitch}
                         />
                     ) : (
                         <ManualJSONButtons
@@ -69,6 +76,7 @@ const OperationsView: React.FunctionComponent<Props> = props => {
                     )}
 
                     <RandomSwitcher onChange={handleRandomSwitcher} />
+                    {isRandomSwitch && <MergeEqualKeysSwitcher onChange={handleMergeEqualKeysSwitcher} />}
                     <SelectRange error={rangeError} onChange={handleRangeInput} value={`1-${JSONobject.length}`} />
                     <SkipLayers />
                     <ManualPopulationSwitcher onChange={handleManualSwitcher} />
